@@ -20,3 +20,10 @@ model Player {
   time      String
   anonymous Boolean
 }
+
+model Level {
+  id     String @id @default(uuid())
+  name   String @unique
+  img    String @unique
+  coords Json
+}

@@ -101,9 +101,9 @@ const compareTime = (time1, time2) => {
       if (ms1 < ms2) {
         return -1;
       }
-      return 0;
     }
   }
+  return 0;
 };
 
 module.exports = { getAllPlayers, addNewPlayer };
