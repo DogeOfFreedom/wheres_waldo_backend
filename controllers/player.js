@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const expressAsyncHandler = require("express-async-handler");
+const { insideSquare } = require("./square");
 
 const prisma = new PrismaClient();
 
@@ -9,7 +10,8 @@ const getAllPlayers = expressAsyncHandler(async (req, res) => {
 });
 
 const addNewPlayer = expressAsyncHandler(async (req, res) => {
-  const { name, time } = req.body;
+  const { anon, time } = req.body;
+  const name = anon ? null : req.body.name;
 
   const players = await prisma.player.findMany({
     orderBy: {
@@ -106,4 +108,32 @@ const compareTime = (time1, time2) => {
   return 0;
 };
 
-module.exports = { getAllPlayers, addNewPlayer };
+const verifyPlayerChoice = expressAsyncHandler(async (req, res) => {
+  const { name } = req.body;
+  const coords = {
+    x: req.body.x,
+    y: req.body.y,
+  };
+
+  const answer = await prisma.level.findFirst({
+    where: {
+      name,
+    },
+    select: {
+      location: true,
+      dimensions: true,
+    },
+  });
+
+  if (insideSquare(coords, answer)) {
+    return res.json({
+      dimensions: answer.dimensions,
+      inside: true,
+    });
+  }
+  return res.json({
+    inside: false,
+  });
+});
+
+module.exports = { getAllPlayers, addNewPlayer, verifyPlayerChoice };

@@ -5,6 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "server": "nodemon app",
+    "test": "vitest",
     "debug": "nodemon --inspect app",
     "eslint": "eslint --init"
   },
@@ -24,7 +25,8 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "nodemon": "^3.1.2",
-    "prettier": "3.2.5"
+    "prettier": "3.2.5",
+    "supertest": "^7.0.0"
   },
   "dependencies": {
     "@prisma/client": "^5.17.0",
@@ -50,6 +52,7 @@
     "passport-local": "^1.0.0",
     "pg": "^8.12.0",
     "prisma": "^5.17.0",
-    "uuid": "^11.0.3"
+    "uuid": "^11.0.3",
+    "vitest": "^2.1.5"
   }
 }

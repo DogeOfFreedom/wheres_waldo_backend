@@ -16,14 +16,15 @@ datasource db {
 model Player {
   id        String  @id @default(uuid())
   rank      Int     @unique
-  name      String
+  name      String?
   time      String
   anonymous Boolean
 }
 
 model Level {
-  id     String @id @default(uuid())
-  name   String @unique
-  img    String @unique
-  coords Json
+  id         String @id @default(uuid())
+  name       String @unique
+  img        String @unique
+  location   Json
+  dimensions Json
 }

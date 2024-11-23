@@ -2,31 +2,42 @@
 // https://stackoverflow.com/questions/2752725/finding-whether-a-point-lies-inside-a-rectangle-or-not
 
 // For a rectangle, if a point is on the left side of all edges, it's in the square
-const insideSquare = (coord) => {
+const insideSquare = (coord, answer) => {
+  const width = answer.dimensions.w;
+  const height = answer.dimensions.h;
+
+  // use coord to get the pixel positions of the square corners
   const radius = 30; // Square is 60 x 60
   const p1 = {
     // bottom right
-    x: coord.x + radius,
-    y: coord.y + radius,
+    x: Math.min(width, Math.max(0, coord.x + radius)),
+    y: Math.min(height, Math.max(0, coord.y + radius)),
   };
   const p2 = {
     // top right
-    x: coord.x + radius,
-    y: coord.y - radius,
+    x: Math.min(width, Math.max(0, coord.x + radius)),
+    y: Math.min(height, Math.max(0, coord.y - radius)),
   };
   const p3 = {
     // top left
-    x: coord.x - radius,
-    y: coord.y - radius,
+    x: Math.min(width, Math.max(0, coord.x - radius)),
+    y: Math.min(height, Math.max(0, coord.y - radius)),
   };
   const p4 = {
     // bottom left
-    x: coord.x - radius,
-    y: coord.y + radius,
+    x: Math.min(width, Math.max(0, coord.x - radius)),
+    y: Math.min(height, Math.max(0, coord.y + radius)),
   };
-  const pairs = [[[p1, p2]], [p2, p3], [p3, p4], [p4, p1]];
+  const pairs = [
+    [p2, p1],
+    [p3, p2],
+    [p4, p3],
+    [p1, p4],
+  ];
+
+  // Check if the answer is in the newly formed square
   for (const pair of pairs) {
-    const D = onLeftSideCheck(coord, pair[0], pair[1]);
+    const D = onLeftSideCheck(answer.location, pair[0], pair[1]);
     if (D < 0) {
       return false;
     }

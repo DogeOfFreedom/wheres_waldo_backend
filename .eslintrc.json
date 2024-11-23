@@ -13,6 +13,7 @@
         "no-plusplus": "off",
         "no-use-before-define": "off",
         "no-continue": "off",
-        "no-restricted-syntax": "off"
+        "no-restricted-syntax": "off",
+        "eslint-plugin-import/newline-after-import"
     }
 }
