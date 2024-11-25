@@ -9,13 +9,9 @@ const { validatePlayer } = require("./validation/validation");
 const { checkForErrors } = require("./validation/errors");
 const { getLevels, getSpecificLevel } = require("../controllers/levels");
 
-if (process.env.ENV === "development") {
+if (process.env.ENV === "development" || process.env.ENV === "testing") {
   router.get("/populate", populate);
 }
-
-router.get("/test", (req, res) => {
-  res.sendStatus(200);
-});
 
 router.get("/players", getAllPlayers);
 

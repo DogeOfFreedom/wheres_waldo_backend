@@ -23,5 +23,8 @@ app.use(router);
 // error handler
 app.use((err, req, res, next) => {
   console.log(err.stack);
+  if (process.env.ENV === "testing") {
+    res.status(500).send(err);
+  }
   res.status(500).send("Internal Server Error");
 });

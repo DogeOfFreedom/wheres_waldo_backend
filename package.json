@@ -4,10 +4,11 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "server": "nodemon app",
-    "test": "vitest",
-    "debug": "nodemon --inspect app",
-    "eslint": "eslint --init"
+    "server": "npx prisma generate --schema=prisma/schema.prisma && nodemon app",
+    "test": "npx prisma generate --schema=prisma/test.schema.prisma && ENV=testing vitest",
+    "debug": "npx prisma generate --schema=prisma/schema.prisma && nodemon --inspect app",
+    "eslint": "eslint --init",
+    "updateAll": "npx prisma migrate dev schema=./prisma/test.schema.prisma && npx prisma migrate dev schema=./prisma/schema.prisma"
   },
   "repository": {
     "type": "git",
