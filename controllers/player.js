@@ -67,11 +67,11 @@ const addNewPlayer = expressAsyncHandler(async (req, res) => {
   );
 
   // Insert new player
-  const fakeRes = await prisma.player.create({
+  await prisma.player.create({
     data: newPlayer,
   });
 
-  res.sendStatus(200);
+  res.json({ validName: true });
 });
 
 // -1 = time1 is slower
