@@ -13,7 +13,7 @@ if (process.env.ENV === "development" || process.env.ENV === "testing") {
   router.get("/populate", populate);
 }
 
-router.get("/players", getAllPlayers);
+router.get("/players/:levelName", getAllPlayers);
 
 router.post("/players", validatePlayer, checkForErrors, addNewPlayer);
 

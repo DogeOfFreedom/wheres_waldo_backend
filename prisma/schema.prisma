@@ -14,17 +14,20 @@ datasource db {
 }
 
 model Player {
-  id   String  @id @default(uuid())
-  rank Int
-  name String?
-  time Json
-  anon Boolean
+  id      String  @id @default(uuid())
+  rank    Int
+  name    String?
+  time    Json
+  anon    Boolean
+  levelId String
+  Level   Level   @relation(fields: [levelId], references: [id], onDelete: Cascade)
 }
 
 model Level {
-  id         String @id @default(uuid())
-  name       String @unique
-  img        String @unique
+  id         String   @id @default(uuid())
+  name       String   @unique
+  img        String   @unique
   location   Json
   dimensions Json
+  Players    Player[]
 }

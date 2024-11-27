@@ -5,12 +5,28 @@ const { insideSquare } = require("./square");
 const prisma = new PrismaClient();
 
 const getAllPlayers = expressAsyncHandler(async (req, res) => {
-  const players = await prisma.player.findMany();
+  const { levelName } = req.params;
+  const level = await prisma.level.findFirst({
+    where: {
+      name: levelName,
+    },
+    select: {
+      id: true,
+    },
+  });
+  const players = await prisma.player.findMany({
+    where: {
+      levelId: level.id,
+    },
+    orderBy: {
+      rank: "asc",
+    },
+  });
   res.json(players);
 });
 
 const addNewPlayer = expressAsyncHandler(async (req, res) => {
-  const { anon, time } = req.body;
+  const { anon, time, levelId } = req.body;
   const name = anon ? null : req.body.name;
 
   const players = await prisma.player.findMany({
@@ -50,6 +66,7 @@ const addNewPlayer = expressAsyncHandler(async (req, res) => {
     name,
     time,
     anon,
+    levelId,
   };
 
   // Update all existing players
