@@ -30,6 +30,9 @@ const addNewPlayer = expressAsyncHandler(async (req, res) => {
   const name = anon ? null : req.body.name;
 
   const players = await prisma.player.findMany({
+    where: {
+      levelId,
+    },
     orderBy: {
       rank: "asc",
     },
